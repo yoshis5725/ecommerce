@@ -1,6 +1,8 @@
 ﻿global using ecommerce.Shared;
 global using Microsoft.EntityFrameworkCore;
 global using ecommerce.Server.Data;
+global using ecommerce.Server.Services.ProductService;
+global using ecommerce.Server.Services.CategoryService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,9 @@ builder.Services.AddRazorPages();
 // Register the Swagger services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 var app = builder.Build();
 
