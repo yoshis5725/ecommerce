@@ -1,3 +1,4 @@
+@using ecommerce.Shared
 @inject HttpClient Http
 
 
@@ -27,9 +28,9 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var result = await Http.GetFromJsonAsync<List<Product>>("api/Product");
+        var result = await Http.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/Product");
         
-        if (result != null)
-            _products = result;
+        if (result is { Data: not null })
+            _products = result.Data;
     }
 }

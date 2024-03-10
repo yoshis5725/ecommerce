@@ -1,4 +1,5 @@
 
+using ecommerce.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ecommerce.Server.Controllers;
@@ -11,9 +12,10 @@ namespace ecommerce.Server.Controllers;
 public class ProductController(DataContext context) : Controller
 {
     [HttpGet]
-    public async Task<ActionResult<List<Product>>> GetProducts()
+    public async Task<ActionResult<ServiceResponse<List<Product>>>> GetProducts()
     {
         var products = await context.Products.ToListAsync();
-        return Ok(products);
+        var response = new ServiceResponse<List<Product>> { Data = products };
+        return Ok(response);
     }
 }
